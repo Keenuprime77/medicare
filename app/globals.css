@@ -1,0 +1,258 @@
+@import "tailwindcss";
+
+
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: radial-gradient(circle at 40% 40%,
+        #1a0028 0%,
+        #2a0040 30%,
+        #3c005c 60%,
+        #550077 85%,
+        #700099 100%);
+
+    ;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.cal {
+  width: 400px;
+  background: #0b0808;
+  color: #fff;
+}
+
+.calendar ul {
+  display: flex;
+  list-style: none;
+  flex-wrap: wrap;
+}
+
+.cal header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 30px 10px;
+}
+
+header .current-date {
+  font-size: 1.45rem;
+  font-weight: 500;
+}
+
+
+header .icons i {
+  height: 38px;
+  width: 38px;
+  color: #d4d4ed;
+  font-size: 1.5rem;
+  margin: 0 1px;
+  cursor: pointer;
+  text-align: center;
+  line-height: 38px;
+  border-radius: 50%;
+}
+
+header .icons i:hover {
+  background: #f2f2f2;
+}
+
+header .icons i:last-child {
+  margin-left: 10px;
+}
+
+.calendar {
+  padding: 20px;
+}
+
+.calendar ul {
+  display: flex;
+  list-style: none;
+  flex-wrap: wrap;
+  text-align: center;
+  /* margin: 10px; */
+}
+
+.calendar .days {
+  margin-bottom: 20px;
+}
+
+.calendar .weeks {
+  font-weight: 500;
+}
+
+
+.calendar ul li {
+  position: relative;
+  width: calc(100%/7);
+  
+}
+.calendar ul li:hover{
+  color: #000;
+}
+.next:hover{
+  color: #000;
+}
+.prev:hover{
+  color: #000;
+}
+
+.calendar .days li {
+  z-index: 1;
+  cursor: pointer;
+  margin-top: 30px;
+}
+
+.days li.inactive {
+  color: #5d5c5c;
+}
+
+.days li.active {
+  color: #000;
+  font-weight: 700;
+}
+
+.calendar .days li::before {
+  position: absolute;
+  content: "";
+  height: 40px;
+  width: 40px;
+  top: 50%;
+  left: 50%;
+  z-index: -1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+}
+
+.days li:hover::before {
+  background: #f2f2f2;
+  color: #000;
+}
+
+.days li.active::before {
+  background: #33ff99;
+
+}
+
+/* table css */
+:root {
+  --muted-background: rgba(39, 39, 42, 0.5);
+  --border: rgba(39, 39, 42, 1);
+  --accent: #ffffff;
+  --cells-hover-bg: #222831;
+  --cell-bg: #4A102A;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-areas:
+    "box1 box2"
+    "box3 box4";
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  height: 100vh;
+}
+
+/* Responsive grid for smaller screens */
+@media (max-width: 768px) {
+  .grid-container {
+    grid-template-areas:
+      "box1"
+      "box2"
+      "box3"
+      "box4";
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(4, auto);
+    height: auto;
+  }
+}
+
+.box {
+  overflow: auto;
+}
+
+.box-2 {
+  grid-area: box2;
+}
+
+/* Table styles */
+.table-container {
+  overflow-x: auto;
+  width: 100%;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.875rem;
+}
+
+th {
+  font-weight:bolder;
+  padding: 0.875rem 1.5rem;
+  text-transform: uppercase;
+  background: var(--muted-background);
+  border-bottom: 1px solid var(--border);
+}
+
+td {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+td:hover {
+  background: var(--cell-bg);
+}
+
+tr {
+  background: var(--background);
+  transition: all .3s ease;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+.table-cryptic td:has(~ td:hover),
+.table-cryptic td:has(+ td:hover),
+.table-cryptic td:hover ~ td {
+  background: var(--cells-hover-bg);
+}
+
+.table-ocean tr:hover td {
+  background: linear-gradient(135deg, #03e9f4, #03e9f4);
+  color: black;
+  box-shadow: 0 0 12px #03e9f4, 0 0 30px #03e9f4;
+  transition: all 0.2s ease-in-out;
+}
+
+.table-ocean tr:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+h2 {
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
