@@ -1,7 +1,5 @@
 @import "tailwindcss";
 
-
-
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -164,8 +162,7 @@ header .icons i:last-child {
 .grid-container {
   display: grid;
   grid-template-areas:
-    "box1 box2"
-    "box3 box4";
+    "box2";
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   gap: 1.5rem;
@@ -177,10 +174,7 @@ header .icons i:last-child {
 @media (max-width: 768px) {
   .grid-container {
     grid-template-areas:
-      "box1"
-      "box2"
-      "box3"
-      "box4";
+      "box2";
     grid-template-columns: 1fr;
     grid-template-rows: repeat(4, auto);
     height: auto;

@@ -9,10 +9,12 @@ const HomePathname=usePathname()
 const MedicinePathname=usePathname()
 const UserPathname=usePathname()
 const HistoryPathname=usePathname()
+const CaringPathname=usePathname()
 const HomeIsActive=HomePathname==="/"
 const MedicinesIsActive=MedicinePathname==="/Medicines"
 const UserIsActive=UserPathname==="/User"
 const HistoryIsActive=HistoryPathname==="/History"
+const CaringIsActive=CaringPathname==="/Caring"
 
   return (
     <div className="items-center justify-items-center sm:p-12 font-[family-name:var(--font-geist-sans)]">
@@ -35,6 +37,10 @@ const HistoryIsActive=HistoryPathname==="/History"
         <Link href="/Medicines" className="cursor-pointer">
           <span><p className={`hover:[text-shadow:0_0_5px_#03e9f4,0_0_5px_#03e9f4,0_0_10px_#03e9f4,0_0_10px_#03e9f4] transition-all duration-300 ${MedicinesIsActive ? "text-[#03e9f4]":""
           }`}>Medicines</p></span>
+        </Link>
+        <Link href="/Caring" className="cursor-pointer">
+          <span><p className={`hover:[text-shadow:0_0_5px_#03e9f4,0_0_5px_#03e9f4,0_0_10px_#03e9f4,0_0_10px_#03e9f4] transition-all duration-300 ${CaringIsActive ? "text-[#03e9f4]":""
+          }`}>Caring</p></span>
         </Link>
         <Link href="/History" className="cursor-pointer">
           <span><p className={`hover:[text-shadow:0_0_5px_#03e9f4,0_0_5px_#03e9f4,0_0_10px_#03e9f4,0_0_10px_#03e9f4] transition-all duration-300 ${HistoryIsActive ? "text-[#03e9f4]":""

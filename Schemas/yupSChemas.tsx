@@ -10,3 +10,8 @@ export const MedicineSchema = Yup.object({
     number_days: Yup.string().required("please enter No. of Days"),
     startdate: Yup.string().required("please enter Start Date"),
 })
+
+export const ReminderSchema=Yup.object({
+    reminder:Yup.string().required("please enter Reminder"),
+    date:Yup.date().required("please enter date")
+})

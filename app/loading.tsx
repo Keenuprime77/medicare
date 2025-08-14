@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function Loading() {
   return (
-    <div className="flex-center size-full h-screen gap-3 text-white">
+    <div className="flex-center size-full h-screen text-white bg-black">
       <Image
         src="/loader.svg"
         alt="loader"

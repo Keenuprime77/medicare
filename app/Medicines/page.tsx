@@ -1,9 +1,9 @@
 "use client"
 import Header from '@/components/header'
 import { MedicineSchema } from '@/Schemas/yupSChemas';
-import { Formik, useFormik } from 'formik';
+import { useFormik } from 'formik';
 import Link from 'next/link';
-import React, { useState, } from 'react'
+import React from 'react'
 import toast from 'react-hot-toast';
 import { FaInfoCircle } from 'react-icons/fa';
 import { Tooltip as ReactTooltip } from "react-tooltip";
@@ -18,7 +18,7 @@ const initialValues: Medicines = {
   dosage_pattern: "",
   times_days: "",
   number_days: "",
-  startdate: ""
+  startdate: "",
 }
 
 const MedicinePage = () => {
@@ -29,18 +29,16 @@ const MedicinePage = () => {
     onSubmit: (values, { resetForm }) => {
       const result = getSchedule();
       console.log(result, values)
-      // axios.post('api/medicareDB', { ...values, schedule: result })
-      //   .then(() => {
-      //     toast.success("Your schedule generated")
-      //     resetForm()
-      //   }).catch((error) => {
-      //     console.log("Error:", error)
-      //     toast.error("something went wrong")
-      //   })
+      axios.post('api/medicareDB', { ...values, schedule: result })
+        .then(() => {
+          toast.success("Your schedule generated")
+          resetForm()
+        }).catch((error) => {
+          console.log("Error:", error)
+          toast.error("something went wrong")
+        })
     }
   })
-
-  const [schedule, setSchedule] = useState<ScheduleEntry[]>([])
 
 
   const getSchedule = () => {
@@ -81,8 +79,6 @@ const MedicinePage = () => {
         doses
       })
     }
-    setSchedule(result)
-    console.log(schedule, "vfsvfsdf")
     return result
   }
 
@@ -92,7 +88,6 @@ const MedicinePage = () => {
       <form onSubmit={handleSubmit}>
         <div className="flex">
           <div className='flex flex-col bg-[linear-gradient(147deg,_#4B4E53_0%,_#000000_74%)] w-[28%] ml-11 items-center justify-between rounded-2xl h-[30%] shadow-2xl xl:px-12'  >
-
             <label htmlFor="medicine_name" className='mt-3 font-bold'>Medicine Name:</label>
             <input className='bg-black placeholder-[#03e9f4] rounded-md border-2 border-[#03e9f4]' type='text' placeholder='Enter Medicine name' name='medicine_name' onBlur={handleBlur} value={values.medicine_name} onChange={handleChange} id='medicine_name' />
             {errors.medicine_name && touched.medicine_name && <p className='text-red-500'>{errors.medicine_name}</p>}

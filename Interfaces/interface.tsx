@@ -8,6 +8,8 @@ export interface Medicines {
     startdate:string;
 }
 
+
+
 export interface Dose{
     time:string;
     dosage:string;
@@ -17,4 +19,13 @@ export interface ScheduleEntry{
     day:number;
     date:string;
     doses:Dose[]
+}
+
+export interface Reminder{
+    reminder:string;
+    date:string;
+}
+
+export interface MedicineWithSchedule extends Medicines{
+    schedule:ScheduleEntry[];
 }
