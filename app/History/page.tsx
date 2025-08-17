@@ -1,22 +1,20 @@
 'use client';
-
 import Header from '@/components/header';
+import { Days } from '@/Interfaces/interface';
 import React, { useEffect, useState } from 'react';
 
 const Calendar = () => {
   const [date] = useState(new Date());
   const [curYear, setCurYear] = useState(date.getFullYear());
   const [curMonth, setCurMonth] = useState(date.getMonth());
-  const [daysArray, setDaysArray] = useState([]);
+  const [daysArray, setDaysArray] = useState<Days[]>([]);
 
   const Months = [
     'January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'
   ];
 
- 
-
-  const renderCalendar = () => {
+  useEffect(() => {
     const today = new Date();
     const firstDay = new Date(curYear, curMonth, 1).getDay();
     const lastDate = new Date(curYear, curMonth + 1, 0).getDate();
@@ -46,13 +44,10 @@ const Calendar = () => {
     }
 
     setDaysArray(days);
-  };
-
-   useEffect(() => {
-    renderCalendar();
   }, [curMonth, curYear]);
-  
-  const handleMonthChange = (direction) => {
+
+
+  const handleMonthChange = (direction: string) => {
     let newMonth = direction === 'prev' ? curMonth - 1 : curMonth + 1;
     let newYear = curYear;
 
@@ -72,32 +67,32 @@ const Calendar = () => {
     <div className='flex flex-col'>
 
       <Header></Header>
-    <div className="cal m-auto">
-      <header className="calendar-header">
-        <p className="current-date">{Months[curMonth]} {curYear}</p>
-        <div className="icons">
-          <i className="ri-arrow-left-s-line prev" onClick={() => handleMonthChange('prev')} >&#60;</i>
-          <i className="ri-arrow-right-s-line next" onClick={() => handleMonthChange('next')} >&gt;</i>
+      <div className="cal m-auto">
+        <header className="calendar-header">
+          <p className="current-date">{Months[curMonth]} {curYear}</p>
+          <div className="icons">
+            <i className="ri-arrow-left-s-line prev" onClick={() => handleMonthChange('prev')} >&#60;</i>
+            <i className="ri-arrow-right-s-line next" onClick={() => handleMonthChange('next')} >&gt;</i>
+          </div>
+        </header>
+        <div className="calendar">
+          <ul className="weeks">
+            <li>Sun</li>
+            <li>Mon</li>
+            <li>Tue</li>
+            <li>Wed</li>
+            <li>Thu</li>
+            <li>Fri</li>
+            <li>Sat</li>
+          </ul>
+          <ul className="days">
+            {daysArray.map((day, index) => (
+              <li key={index} className={`day-item ${day.className}`}>{day.label}</li>
+            ))}
+          </ul>
         </div>
-      </header>
-      <div className="calendar">
-        <ul className="weeks">
-          <li>Sun</li>
-          <li>Mon</li>
-          <li>Tue</li>
-          <li>Wed</li>
-          <li>Thu</li>
-          <li>Fri</li>
-          <li>Sat</li>
-        </ul>
-        <ul className="days">
-          {daysArray.map((day, index) => (
-            <li key={index} className={`day-item ${day.className}`}>{day.label}</li>
-          ))}
-        </ul>
       </div>
     </div>
-            </div>
   );
 };
 

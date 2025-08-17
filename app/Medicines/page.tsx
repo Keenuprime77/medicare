@@ -10,7 +10,6 @@ import { Tooltip as ReactTooltip } from "react-tooltip";
 import { ScheduleEntry, Medicines, Dose } from '../../Interfaces/interface';
 import axios from 'axios';
 
-
 const initialValues: Medicines = {
   medicine_name: "",
   quantity: "",

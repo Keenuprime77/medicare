@@ -2,8 +2,6 @@ import { MedicineSchema } from "@/Schemas/MedicinsSchema";
 import mongoose from "mongoose";
 import { NextRequest, NextResponse } from "next/server";
 
-
-
 const MONGO_DB_URL = process.env.ConnectionURl
 export async function GET() {
   let data = []

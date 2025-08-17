@@ -197,8 +197,7 @@ header .icons i:last-child {
 
 table {
   width: 100%;
-  border-collapse: collapse;
-  text-align: left;
+  border-collapse:collapse;
   font-size: 0.875rem;
 }
 
@@ -212,26 +211,15 @@ th {
 
 td {
   padding: 1rem 1.5rem;
-  border-bottom: 1px solid var(--border);
 }
 
-td:hover {
-  background: var(--cell-bg);
+.no-padding {
+  padding: 0 !important;
 }
 
 tr {
   background: var(--background);
   transition: all .3s ease;
-}
-
-tr:last-child td {
-  border-bottom: none;
-}
-
-.table-cryptic td:has(~ td:hover),
-.table-cryptic td:has(+ td:hover),
-.table-cryptic td:hover ~ td {
-  background: var(--cells-hover-bg);
 }
 
 .table-ocean tr:hover td {

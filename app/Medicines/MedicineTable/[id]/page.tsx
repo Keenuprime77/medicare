@@ -12,7 +12,7 @@ const MedicineTablePage = () => {
     const { id } = useParams()
     console.log(id)
     useEffect(() => {
-        axios.get(`/api/medicareDB/68924581f7740bdab62ae0bc`)
+        axios.get(`/api/medicareDB/${id}`)
             .then((response) => {
                 setMedicineData(response.data.result)
                 console.log(response.data.result, "data collected")
@@ -22,18 +22,17 @@ const MedicineTablePage = () => {
                 toast.error("something went wrong")
             })
 
-    }, [])
+    }, [id])
     return (
         <div>
-            <div className='relative right-[0] mt-6'>
+            <div className='absolute top-4 right-4 flex gap-2'>
                 <Link href="/Medicines" className='bg-[#03e9f4] text-black font-semibold px-4 mb-6 my-2 py-2 rounded transition duration-150 ease-in-out transform active:scale-75 active:shadow-inner shadow-lg'>Back</Link>
                 <Link href="/Home" className='bg-[#03e9f4] text-black font-semibold px-4 mb-6 my-2 py-2 rounded transition duration-150 ease-in-out transform active:scale-75 active:shadow-inner shadow-lg'>Home</Link>
             </div>
             <div className="box box-2">
                 {!medicineData ? (
-                    <h1>No medicines found</h1>
+                    <h1 className='grid place-items-center font-mono h-screen text-5xl'>No medicines found</h1>
                 ) : (
-
                     <>
                         <h2>Your Medicine Schedule</h2>
                         <h3>{medicineData.medicine_name}</h3>
@@ -43,32 +42,43 @@ const MedicineTablePage = () => {
                             <table className="table-ocean">
                                 <thead>
                                     <tr>
-                                        <th>Date</th>
-                                        <th>no of Days</th>
-                                        <th>Time</th>
-                                        <th>Dose</th>
+                                        <th className='text-center'>Date</th>
+                                        <th className='text-center'>no of Days</th>
+                                        <th className='text-center'>Time</th>
+                                        <th className='text-center'>Dose</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {medicineData.schedule && medicineData.schedule.map((item, id: number) => (
                                         <tr key={id}>
-                                            <td>{item.date}</td>
-                                            <td>{item.day}</td>
-                                            <td>
+                                            <td className='text-center '>{item.date}</td>
+                                            <td className='text-center '>{item.day}</td>
+                                            <td className='text-center no-padding'>
                                                 {
                                                     item.doses.map((tim, idx: number) => (
-                                                        <div key={idx} style={{ borderBottom: idx !== item.doses.length - 1 ? '1px solid #ccc' : "none" }} >{tim.time}</div>
+                                                        <>
+                                                            <div key={idx} style={{
+                                                                border:  item.doses.length > 1 ? "1px solid #800080" : "none",
+                                                                width: "100%",
+                                                                display: "block",
+                                                                padding: "0.5rem 1.5rem"
+                                                            }} >{tim.time}</div>
+                                                        </>
                                                     ))
                                                 }
                                             </td>
-                                            <td>
+                                            <td className='text-center no-padding'>
                                                 {
                                                     item.doses.map((dos, idy: number) => (
-                                                        <div key={idy} style={{ borderBottom: idy !== item.doses.length - 1 ? '1px solid #ccc' : "none" }}>{dos.dosage}</div>
+                                                        <div key={idy} style={{
+                                                            border: item.doses.length > 1 ? '1px solid #800080' : "none",
+                                                            width: "100%",
+                                                            display: "block",
+                                                            padding: "0.5rem 1.5rem"
+                                                        }}>{dos.dosage}</div>
                                                     ))
                                                 }
                                             </td>
-
                                         </tr>
                                     ))
                                     }
