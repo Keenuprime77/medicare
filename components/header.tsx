@@ -17,8 +17,8 @@ const HistoryIsActive=HistoryPathname==="/History"
 const CaringIsActive=CaringPathname==="/Caring"
 
   return (
-    <div className="items-center justify-items-center sm:p-12 font-[family-name:var(--font-geist-sans)]">
-      <header className="mx-3 flex bg-[linear-gradient(147deg,_#4B4E53_0%,_#000000_74%)] w-[100%] items-center justify-between rounded-2xl  px-[5%] h-18 shadow-2xl xl:px-12;">
+    <div className="justify-items-center p-12 font-[family-name:var(--font-geist-sans)]">
+      <header className="mx-3 flex bg-[linear-gradient(147deg,_#4B4E53_0%,_#000000_74%)] w-[100%] items-center justify-between rounded-2xl  px-[5%] h-18 shadow-2xl ">
         <Image
           src="/medicareLogo.png"
           height={32}

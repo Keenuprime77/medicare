@@ -13,5 +13,15 @@ export const MedicineSchema = Yup.object({
 
 export const ReminderSchema=Yup.object({
     reminder:Yup.string().required("please enter Reminder"),
-    date:Yup.date().required("please enter date")
+    ChoiceTypeOfReminder:Yup.string().required("please select an option"),
+    date:Yup.string().when("ChoiceTypeOfReminder",{
+        is:"date",
+        then:(schema)=>schema.required("please enter Date"),
+        otherwise:(schema)=>schema.notRequired()
+    }),
+    days:Yup.string().when("ChoiceTypeOfReminder",{
+        is:"day",
+        then:(schema)=>schema.required("please enter Days"),
+        otherwise:(schema)=>schema.notRequired()
+    }),
 })

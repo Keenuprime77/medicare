@@ -1,17 +1,19 @@
 "use client"
-import { MedicineWithSchedule } from '@/Interfaces/interface'
-import axios from 'axios'
-import Link from 'next/link'
-import { useParams } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
-import toast from 'react-hot-toast'
+import Loading from '@/app/loading';
+import { MedicineWithSchedule } from '@/Interfaces/interface';
+import axios from 'axios';
+import Link from 'next/link';
+import { useParams } from 'next/navigation';
+import React, { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 
 const MedicineTablePage = () => {
     const [medicineData, setMedicineData] = useState<MedicineWithSchedule>();
-    console.log(medicineData, "checktype")
+    const [loading, setLoading] = useState(false);
     const { id } = useParams()
     console.log(id)
     useEffect(() => {
+        setLoading(true);
         axios.get(`/api/medicareDB/${id}`)
             .then((response) => {
                 setMedicineData(response.data.result)
@@ -20,9 +22,16 @@ const MedicineTablePage = () => {
             ).catch((error) => {
                 console.log("Error:", error)
                 toast.error("something went wrong")
+            }).finally(() => {
+                setLoading(false);
             })
 
     }, [id])
+
+    if (loading === true) {
+        return (<Loading />)
+    }
+
     return (
         <div>
             <div className='absolute top-4 right-4 flex gap-2'>
@@ -56,14 +65,12 @@ const MedicineTablePage = () => {
                                             <td className='text-center no-padding'>
                                                 {
                                                     item.doses.map((tim, idx: number) => (
-                                                        <>
-                                                            <div key={idx} style={{
-                                                                border:  item.doses.length > 1 ? "1px solid #800080" : "none",
-                                                                width: "100%",
-                                                                display: "block",
-                                                                padding: "0.5rem 1.5rem"
-                                                            }} >{tim.time}</div>
-                                                        </>
+                                                        <div key={idx} style={{
+                                                            border: item.doses.length > 1 ? "1px solid #800080" : "none",
+                                                            width: "100%",
+                                                            display: "block",
+                                                            padding: "0.5rem 1.5rem"
+                                                        }} >{tim.time}</div>
                                                     ))
                                                 }
                                             </td>

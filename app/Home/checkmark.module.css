@@ -1,4 +1,4 @@
-._checkbox {
+/* ._checkbox {
   display: none;
 }
 
@@ -97,4 +97,4 @@
 ._checkbox:checked + .label .tick_mark::after {
   transform: translate(0);
   opacity: 1;
-}
+} */

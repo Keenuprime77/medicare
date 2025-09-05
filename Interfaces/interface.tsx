@@ -1,4 +1,5 @@
 export interface Medicines {
+    _id?: string;
     medicine_name: string
     quantity: string;
     frequency: string;
@@ -11,6 +12,7 @@ export interface Medicines {
 export interface Dose {
     time: string;
     dosage: string;
+    _id?:string;
 }
 
 export interface ScheduleEntry {
@@ -22,6 +24,8 @@ export interface ScheduleEntry {
 export interface Reminder {
     reminder: string;
     date: string;
+    days: string;
+    ChoiceTypeOfReminder: string
 }
 
 export interface MedicineWithSchedule extends Medicines {

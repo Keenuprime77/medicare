@@ -1,5 +1,4 @@
 "use client"
-import Header from '@/components/header'
 import { MedicineSchema } from '@/Schemas/yupSChemas';
 import { useFormik } from 'formik';
 import Link from 'next/link';
@@ -7,105 +6,49 @@ import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast';
 import { FaInfoCircle } from 'react-icons/fa';
 import { Tooltip as ReactTooltip } from "react-tooltip";
-import { ScheduleEntry, Medicines, Dose } from '../../Interfaces/interface';
+import { Medicines, } from '../../Interfaces/interface';
 import axios from 'axios';
 import Loading from '../loading';
 
 const initialValues: Medicines = {
-  medicine_name: "",
-  quantity: "",
-  frequency: "",
-  dosage_pattern: "",
-  times_days: "",
-  number_days: "",
-  startdate: "",
+    medicine_name: "",
+    quantity: "",
+    frequency: "",
+    dosage_pattern: "",
+    times_days: "",
+    number_days: "",
+    startdate: "",
 }
 
-const MedicinePage = () => {
-  const [medicineData, setMedicineData] = useState<Medicines[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [buttonLoading, setButtonLoading] = useState(false);
-  const { errors, values, handleBlur, touched, handleChange, handleSubmit } = useFormik<Medicines>({
-    validationSchema: MedicineSchema,
-    initialValues,
-    onSubmit: (values, { resetForm }) => {
-      setButtonLoading(true);
-      const result = getSchedule();
-      axios.post('api/medicareDB', { ...values, schedule: result })
-        .then(() => {
-          toast.success("Your schedule generated")
-          resetForm()
-        }).catch((error) => {
-          console.log("Error:", error)
-          toast.error("something went wrong")
-        }).finally(()=>{
-          setButtonLoading(false);
-        })
-    }
-  })
+const UpdateMedicine = () => {
+    // const [medicineData, setMedicineData] = useState<Medicines[]>([]);
+    const [loading, setLoading] = useState(false);
+    const [buttonLoading, setButtonLoading] = useState(false);
+    const { errors, values, handleBlur, touched, handleChange, handleSubmit } = useFormik<Medicines>({
+        validationSchema: MedicineSchema,
+        initialValues,
+        onSubmit: (values, { resetForm }) => {
+            setButtonLoading(true);
+            //   const result = getSchedule();
+            axios.put('api/medicareDB', { ...values,  })
+                .then(() => {
+                    toast.success("Your schedule generated")
+                    resetForm()
+                }).catch((error) => {
+                    console.log("Error:", error)
+                    toast.error("something went wrong")
+                }).finally(() => {
+                    setButtonLoading(false);
+                })
+        }
+    })
 
-  const getSchedule = () => {
-    const { frequency, dosage_pattern, times_days, number_days, startdate, } = values;
-
-    const dosagePattern = dosage_pattern.split(",").map(p => parseFloat(p.trim()));
-    const timesOfDays = times_days.split(",").map(p => p.trim());
-    const freq = parseInt(frequency);
-    const noOFDays = parseInt(number_days);
-
-    const startDate = new Date(startdate);
-    if (timesOfDays.length !== freq) {
-      toast.error("frequancy and times of days are not making reasonable logic")
+    if (loading === true) {
+        return (<Loading />)
     }
 
-    const result: ScheduleEntry[] = [];
-
-    for (let i = 0; i < noOFDays; i++) {
-      const currentDate = new Date(startDate);
-      currentDate.setDate(startDate.getDate() + i);
-
-      let doses: Dose[] = []
-      if (freq == 1) {
-        const index = i % dosagePattern.length
-        doses.push({
-          time: timesOfDays[0],
-          dosage: dosagePattern[index] + "mg"
-        })
-      } else {
-        doses = timesOfDays.map((time, j) => ({
-          time: time,
-          dosage: dosagePattern[j % dosagePattern.length] + "mg"
-        }))
-      }
-      result.push({
-        day: i + 1,
-        date: currentDate.toISOString().split("T")[0],
-        doses
-      })
-    }
-    return result
-  }
-  useEffect(() => {
-    setLoading(true);
-    axios.get("/api/medicareDB")
-      .then((response) => {
-        setMedicineData(response.data.result);
-      })
-      .catch((error) => {
-        console.log("ERROR", error);
-        toast.error("something went wrong");
-      }).finally(() => {
-        setLoading(false);
-      })
-  }, [])
-
-  if (loading === true) {
-    return (<Loading />)
-  }
-
-  return (
-    <>
-      <Header></Header>
-      <form onSubmit={handleSubmit}>
+    return (
+        <form onSubmit={handleSubmit}>
         <div className="flex">
           <div className='flex flex-col bg-[linear-gradient(147deg,_#4B4E53_0%,_#000000_74%)] w-[28%] ml-11 items-center justify-between rounded-2xl h-[30%] shadow-2xl xl:px-12'  >
             <label htmlFor="medicine_name" className='mt-3 font-bold'>Medicine Name:</label>
@@ -197,32 +140,35 @@ const MedicinePage = () => {
             <input onChange={handleChange} value={values.startdate} onBlur={handleBlur} className='bg-black placeholder-[#03e9f4] mb-2 rounded-md border-2 border-[#03e9f4]' name='startdate' id='startdate' type='date' />
             {errors.startdate && touched.startdate && <p className='text-red-500'>{errors.startdate}</p>}
 
+
+<div id="container">
+    
+    <div id="menu-wrap">
+      <input type="checkbox" className="toggler" />
+      <div className="dots">
+        <div></div>
+      </div>
+      <div className="menu">
+        <div>
+          <ul>
+            <li><a href="#" className="link">Option one</a></li>
+            <li><a href="#" className="link">Option two</a></li>
+            <li><a href="#" className="link">Option three</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
             <button
               type="submit"
               className="flex gap-2 bg-[#03e9f4] text-black font-semibold px-4 mb-6 my-2 py-2 rounded transition duration-150 ease-in-out transform active:scale-75 active:shadow-inner shadow-lg"
             >{buttonLoading &&  <div
                 className="h-[23px] w-[23px] animate-spin rounded-full border-4 border-solid border-black border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]">
               </div>}
-              Generate Schedule</button>
-          </div>
-
-          <div className='flex flex-col w-[24%] bg-[#27272acc] ml-6 items-center justify-between rounded-2xl h-[30%]'>
-            <div className='bg-[linear-gradient(147deg,_#4B4E53_0%,_#000000_74%)] py-2 mb-1 text-center rounded-2xl h-[30%]  xl:px-12 w-[100%] font-bold'>
-              <h1>Your Medicines</h1>
-            </div>
-            {
-              loading === false && medicineData.length === 0 ? <h1 className='grid place-items-center my-3 font-mono'>No medicines found</h1> : (medicineData.map((item) => (
-                <div key={item._id} className='mb-2'>
-                  <p className='text-center font-bold'>{item.medicine_name}</p>
-                  <Link className='bg-[#03e9f4] text-black font-semibold px-2  py-1 rounded transition duration-150 ease-in-out transform active:scale-75 active:shadow-inner shadow-lg' href={`/Medicines/MedicineTable/${item._id}`} >See Schedule</Link>
-                </div>
-              ))
-              )}
+              Update Schedule</button>
           </div>
         </div>
-      </form>
-    </>
-  )
+      </form>    )
 }
 
-export default MedicinePage
+export default UpdateMedicine
