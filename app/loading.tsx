@@ -2,11 +2,15 @@ import Image from "next/image";
 import React from 'react'
 import Logo from "../public/medicareLogo.png"
 
-export default function Loading() {
+const loading = () => {
   return (
-    <section className='loading ring'>
-        <Image src={Logo} width={85} alt="Logo" />
-        <p>Medicare</p>
-      </section>
-  );
+    <section className='loading'>
+      <div className='ring'>
+      <Image src={Logo} width={85} className='imageLoader' alt="Logo" />
+      <p className='textLoader'>Medicare</p>
+      </div>
+    </section>
+  )
 }
+
+export default loading

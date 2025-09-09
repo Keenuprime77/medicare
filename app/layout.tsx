@@ -29,8 +29,6 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
-        <NetworkListener>
-        </NetworkListener>
         <Toaster>
         </Toaster>
       </body>

@@ -140,25 +140,6 @@ const UpdateMedicine = () => {
             <input onChange={handleChange} value={values.startdate} onBlur={handleBlur} className='bg-black placeholder-[#03e9f4] mb-2 rounded-md border-2 border-[#03e9f4]' name='startdate' id='startdate' type='date' />
             {errors.startdate && touched.startdate && <p className='text-red-500'>{errors.startdate}</p>}
 
-
-<div id="container">
-    
-    <div id="menu-wrap">
-      <input type="checkbox" className="toggler" />
-      <div className="dots">
-        <div></div>
-      </div>
-      <div className="menu">
-        <div>
-          <ul>
-            <li><a href="#" className="link">Option one</a></li>
-            <li><a href="#" className="link">Option two</a></li>
-            <li><a href="#" className="link">Option three</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
             <button
               type="submit"
               className="flex gap-2 bg-[#03e9f4] text-black font-semibold px-4 mb-6 my-2 py-2 rounded transition duration-150 ease-in-out transform active:scale-75 active:shadow-inner shadow-lg"

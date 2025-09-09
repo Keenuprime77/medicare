@@ -15,6 +15,8 @@ export interface Dose {
     _id?:string;
 }
 
+
+
 export interface ScheduleEntry {
     day: number;
     date: string;
@@ -29,6 +31,7 @@ export interface Reminder {
 }
 
 export interface MedicineWithSchedule extends Medicines {
+    _id:string;
     schedule: ScheduleEntry[];
 }
 

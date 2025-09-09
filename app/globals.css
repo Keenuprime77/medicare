@@ -1,30 +1,24 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: radial-gradient(circle at 40% 40%,
-        #1a0028 0%,
-        #2a0040 30%,
-        #3c005c 60%,
-        #550077 85%,
-        #700099 100%);
 
-    ;
-    --foreground: #ededed;
-  }
+:root {
+  --background: radial-gradient(circle at 40% 40%,
+      #1a0028 0%,
+      #2a0040 30%,
+      #3c005c 60%,
+      #550077 85%,
+      #700099 100%);
+
+  ;
+  --foreground: #ededed;
 }
+
 
 body {
   background: var(--background);
@@ -244,7 +238,7 @@ h2 {
 .dropdown {
   position: relative;
   width: 59%;
-    z-index: 10;
+  z-index: 10;
 }
 
 .select-btn {
@@ -315,6 +309,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   height: 100vh;
   width: 100%;
   background-color: red;
+  background: var(--background)
 }
 
 .ring {
@@ -328,7 +323,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   border: 3px solid #3c3c3c;
   border-radius: 50%;
   text-align: center;
-  /* line-height: 150px; */
   font-family: sans-serif;
   font-size: 10px;
   letter-spacing: 4px;
@@ -352,6 +346,17 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   animation: animateC 2s linear infinite;
 }
 
+.imageLoader {
+  position: relative;
+  top: 14%;
+  left: 20%;
+}
+
+.textLoader {
+  position: relative;
+  top: 14%;
+}
+
 @keyframes animateC {
   0% {
     transform: rotate(0deg);
@@ -362,163 +367,98 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   }
 }
 
-/* three dot button */
+/* table heading */
 
 
 
-
-#container {
-  width: 500px;
-  height: 50px;
-  background-color: #fff;
-  padding: 10px;
-  margin: 0 20px;
-  display: -webkit-box;
-  display: -ms-flexbox;
+.info-box {
   display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
+  gap: 3rem;
+  margin-bottom: 1rem;
+  margin-left: 1rem;
+  width: 85%;
+  padding: 10px 15px;
+  background: linear-gradient(147deg, #4B4E53 0%, #000000 74%);
+  border: 2px solid #03e9f4;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
-#container .text {
-  border: none;
-  background: none;
-  font-size: 18px;
-  font-weight: 400;
+.info-item {
+  font-size: 14px;
 }
 
-#container #menu-wrap {
-  position: relative;
-  height: 25px;
-  width: 25px;
+.info-item .label {
+  font-weight: bold;
+  color: var(--accent);
+  margin-right: 6px;
 }
 
-#container #menu-wrap .dots {
-  position: absolute;
-  height: 100%;
+.info-item .value {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.styled-table {
+  border-collapse: collapse;
   width: 100%;
-  top: 0;
-  left: 0;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  z-index: 1;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
-#container #menu-wrap .dots > div,
-#container #menu-wrap .dots > div:after,
-#container #menu-wrap .dots > div:before {
-  height: 6px;
-  width: 6px;
-  background-color: rgba(49, 49, 49, 0.8);
-  border-radius: 50%;
-  -webkit-transition: 0.5s;
-  -o-transition: 0.5s;
-  transition: 0.5s;
+.styled-table th,
+.styled-table td {
+  border: 1px solid #ddd;
+  padding: 10px 14px;
+  text-align: left;
+  font-size: 14px;
+}
+
+.styled-table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.styled-table tr:nth-child(even) {
+  background-color: #fafafa;
 }
 
 
+/* not found page */
 
+    .error {
+      font-size: 120px;
+      font-weight: bold;
+      display: flex;
+      gap: 20px;
+      color: #03e9f4;
+      align-items: center;
+    }
 
+    .pill {
+      width: 80px;
+      height: 40px;
+      border-radius: 40px;
+      background: linear-gradient(90deg, #03e9f4 50%, black 50%);
+      border: 2px solid white;
+      position: relative;
+      animation: breakPill 1.2s infinite alternate;
+    }
 
+    .pill::before {
+      content: "";
+      position: absolute;
+      width: 6px;
+      height: 100%;
+      background: white;
+      left: 50%;
+      transform: translateX(-50%);
+    }
 
-
-#container #menu-wrap .menu {
-  position: absolute;
-  right: -10px;
-  top: calc(-12px + 50px);
-  width: 0;
-  height: 0;
-  background-color: rgba(255, 255, 255, 0.8);
-  padding: 20px 15px;
-  -webkit-box-shadow: 2px 4px 6px rgba(49, 49, 49, 0.2);
-  box-shadow: 2px 4px 6px rgba(49, 49, 49, 0.2);
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -webkit-box-align: start;
-  -ms-flex-align: start;
-  align-items: flex-start;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  opacity: 0;
-  visibility: hidden;
-}
-
-#container #menu-wrap .menu ul {
-  list-style: none;
-}
-
-#container #menu-wrap .menu ul li {
-  margin: 15px 0;
-}
-
-#container #menu-wrap .menu ul li .link {
-  text-decoration: none;
-  color: rgba(49, 49, 49, 0.85);
-  opacity: 0;
-  visibility: hidden;
-}
-
-#container #menu-wrap .toggler {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  top: 0;
-  left: 0;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  cursor: pointer;
-  z-index: 2;
-}
-
-#container #menu-wrap .toggler:checked ~ .menu {
-  opacity: 1;
-  visibility: visible;
-  width: 150px;
-  height: 130px;
-  -webkit-transition: 0.5s;
-  -o-transition: 0.5s;
-  transition: 0.5s;
-}
-
-#container #menu-wrap .toggler:checked ~ .menu ul .link {
-  opacity: 1;
-  visibility: visible;
-  -webkit-transition: 0.5s ease 0.3s;
-  -o-transition: 0.5s ease 0.3s;
-  transition: 0.5s ease 0.3s;
-}
-
-
-
-
-
-@media (max-width: 600px) {
-  #container {
-    position: absolute;
-    top: 50px;
-    width: calc(100% - 40px);
-    margin: 0;
-  }
-}
+    @keyframes breakPill {
+      0%   { transform: rotate(0deg) translateX(0); }
+      50%  { transform: rotate(-15deg) translateX(-10px); }
+      100% { transform: rotate(15deg) translateX(10px); }
+    }

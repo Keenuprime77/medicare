@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
+import Image from "next/image";
 
 const MedicineTablePage = () => {
     const [medicineData, setMedicineData] = useState<MedicineWithSchedule>();
@@ -34,19 +35,43 @@ const MedicineTablePage = () => {
 
     return (
         <div>
-            <div className='absolute top-4 right-4 flex gap-2'>
+            <div className='absolute top-12 right-4 flex gap-2'>
                 <Link href="/Medicines" className='bg-[#03e9f4] text-black font-semibold px-4 mb-6 my-2 py-2 rounded transition duration-150 ease-in-out transform active:scale-75 active:shadow-inner shadow-lg'>Back</Link>
                 <Link href="/Home" className='bg-[#03e9f4] text-black font-semibold px-4 mb-6 my-2 py-2 rounded transition duration-150 ease-in-out transform active:scale-75 active:shadow-inner shadow-lg'>Home</Link>
             </div>
             <div className="box box-2">
                 {!medicineData ? (
-                    <h1 className='grid place-items-center font-mono h-screen text-5xl'>No medicines found</h1>
+                   <div className="flex items-center justify-center gap-1 h-screen">
+                               <Image
+                                 src="/not_found.png"
+                                 height={62}
+                                 width={162}
+                                 alt="logo"
+                               />
+                               <h1 className="font-mono text-5xl">No medicines found</h1>
+                             </div>
                 ) : (
                     <>
-                        <h2>Your Medicine Schedule</h2>
-                        <h3>{medicineData.medicine_name}</h3>
-                        <p>Your medicine quantity:{medicineData.quantity}</p>
-                        <p>Your schedule for {medicineData.number_days} days</p>
+                        <p className='font-mono ml-5 text-4xl font-bold my-2'>Your Medicine Schedule</p>
+                        <div className="info-box">
+                            <div className="info-item">
+                                <span className="label">Name:</span>
+                                <span className="value">{medicineData.medicine_name}</span>
+                            </div>
+                            <div className="info-item">
+                                <span className="label">Quantity:</span>
+                                <span className="value">{medicineData.quantity}</span>
+                            </div>
+                            <div className="info-item">
+                                <span className="label">No. of Days of Your Schedule:</span>
+                                <span className="value">{medicineData.number_days} </span>
+                            </div>
+                            <div className="info-item">
+                                <span className="label">Current No. of Days of Your Schedule:</span>
+                                <span className="value">{medicineData.number_days} </span>
+                            </div>
+                        </div>
+
                         <div className="table-container">
                             <table className="table-ocean">
                                 <thead>

@@ -23,32 +23,34 @@ export async function GET(request: NextRequest, params: { params: { id: string }
 
 export async function DELETE(
   request: NextRequest,
-  params : { params: { id: string } }
+  params: { params: { id: string } }
 ) {
   try {
-     const medicine = await MedicineSchema.findOne();
-    console.log("Example dose IDs:", medicine?.schedule[0]?.doses.map(d => d._id));
     const { id } = await params.params;
     await mongoose.connect(MONGO_DB_URL!);
-    console.log("Incoming doseId:", id);
 
     const objectId = new Types.ObjectId(id);
-
+    
     const result = await MedicineSchema.updateOne(
       { "schedule.doses._id": objectId },
       { $pull: { "schedule.$[].doses": { _id: objectId } } }
     );
-
-    const result2 = await MedicineSchema.updateOne(
+    
+    const result2 = await MedicineSchema.updateMany(
       {},
-      {$pull:{schedule:{doses:{$size:0}}}}
+      { $pull: { schedule: { doses: { $size: 0 } } } }
     )
+    
+    const deletedMedicineResult = await MedicineSchema.deleteMany({
+      schedule: { $size: 0 }
+    })
 
     return NextResponse.json({
       message: "Dose deleted successfully",
       success: true,
       result,
-      result2
+      result2,
+      deletedMedicineResult
     });
   } catch (err) {
     console.error("Error", err);

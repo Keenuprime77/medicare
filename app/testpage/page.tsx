@@ -4,9 +4,12 @@ import Image from 'next/image'
 
 const loading = () => {
   return (
-    <section className='loading ring'>
-      <Image src={Logo} width={85} alt="Logo" />
-      <p>Medicare</p>
+    <section className='loading'>
+      <div className='ring'>
+
+      <Image src={Logo} width={85} className='imageLoader' alt="Logo" />
+      <p className='textLoader'>Medicare</p>
+      </div>
     </section>
   )
 }
